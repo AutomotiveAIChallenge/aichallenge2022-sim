@@ -105,7 +105,7 @@ sudo apt install libvulkan1
 docker pull ghcr.io/automotiveaichallenge/aichallenge2022-sim/autoware-universe-cuda:latest
 ```
 
-2. 大会用マップデータの準備
+2. 大会用データのダウンロード
 ```
 git clone https://github.com/AutomotiveAIChallenge/aichallenge2022-sim
 ```
