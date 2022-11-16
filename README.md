@@ -61,7 +61,7 @@ sudo apt update
 sudo ubuntu-drivers autoinstall
 ```
 
-4. 再起動し、nvidia-smiを用いてインストールできていることを確認
+4. 再起動の後、インストールできていることを確認
 ```
 nvidia-smi 
 ```
