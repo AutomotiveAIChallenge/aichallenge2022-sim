@@ -5,7 +5,6 @@ Last updated：2022/11/16（provisional information）
 
 This repository contains information for participants of the [Automated AI Challenge 2022 (Simulation)](https://www.jsae.or.jp/jaaic/index.html), including the procedure of building the development environment, competition rules, and other information.  
 
-For competition details and regulations, please refer to [RULE.md](./RULE.md).   
 
 This competition will use autonomous driving software [Autoware.universe](https://github.com/autowarefoundation/autoware.universe) and a self-driving vehicles simulator [AWSIM](https://github.com/tier4/AWSIM), unlike the 3rd Automated Driving AI Challenge held in 2021. Please follow the steps below to build your environment and participate in the competition.   
 
@@ -15,11 +14,11 @@ This competition will use autonomous driving software [Autoware.universe](https:
 ## Development Environment   
 We recommend that you use the following system requirements in this tournament. 
 
-OS: Ubuntu 20.04     
-CPU: Intel Corei7 (8 cores) or higher   
-GPU: NVIDIA Geforce 3080 (VRAM 12 GB) or higher     
-Memory: 32 GB or more      
-Storage: SSD 30 GB or higher   
+OS: Ubuntu 20.04  
+CPU: Intel Corei7 (8 cores) or higher  
+GPU: NVIDIA Geforce 3080 (VRAM 12 GB) or higher  
+Memory: 32 GB or more  
+Storage: SSD 30 GB or higher     
 
 If you cannot prepare a PC that meets the above specifications, please refer to the "For participants with two PCs" specifications below.   
 
@@ -27,17 +26,17 @@ If you cannot prepare a PC that meets the above specifications, please refer to 
 
 
 #### **Autoware PC**   
-OS: Ubuntu 20.04    
-CPU: Intel Corei7 (8 cores) or higher    
-GPU: NVIDIA Geforce GTX 1080 or higher    
-Memory: 16 GB or higher   
-Storage: SSD 10 GB or higher    
+OS: Ubuntu 20.04  
+CPU: Intel Corei7 (8 cores) or higher  
+GPU: NVIDIA Geforce GTX 1080 or higher  
+Memory: 16 GB or higher  
+Storage: SSD 10 GB or higher  
 For more information, [click here](https://autowarefoundation.github.io/autoware.universe/main/)  .
 
 #### **AWSIM PC**  
-OS: Ubuntu 20.04 or windows 10
-CPU: Intel Corei7 (6 cores and 12 threads) or higher   
-GPU: NVIDIA Geforce RTX 2080 Ti or higher   
+OS: Ubuntu 20.04 or Windows 10  
+CPU: Intel Corei7 (6 cores and 12 threads) or higher  
+GPU: NVIDIA Geforce RTX 2080 Ti or higher  
 For more information, [click here](https://tier4.github.io/AWSIM/GettingStarted/SetupUnityProject/)  .
 
 ※PC should be on the same network. 
@@ -86,7 +85,7 @@ sudo apt install libvulkan1
 
 #### **コースの準備**
 1.　Download and unzip the executable of the course for the competition.    
-Tutorial: **link**  
+Tutorial: [click here](https://drive.google.com/drive/folders/1C9bvsDmBwyz0dpjVC0rFpLNfdovWAJ5_)   
 2. Change "aichallenge_tutorial_ubuntu.x86_64" permissions as shown below:   
 <img src="https://user-images.githubusercontent.com/113989589/202225167-f3058a84-c268-4cc5-838a-28dad2c232de.png" width="30%">  
 3. Double-click the file to start AWSIM.   
