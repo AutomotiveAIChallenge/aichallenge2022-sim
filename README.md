@@ -3,7 +3,7 @@
 
 更新日：2022/11/16（暫定情報掲載中）
 
-本リポジトリでは、[自動運転AIチャレンジ2022（シミュレーション）](https://www.jsae.or.jp/jaaic/index.html)の参加者向けに、環境構築手順・大会ルール等、大会に参加するために必要な情報をまとめています。競技内容・ルールについては[RULE.md](./RULE.md)をご確認ください。
+本リポジトリでは、[自動運転AIチャレンジ2022（シミュレーション）](https://www.jsae.or.jp/jaaic/index.html)の参加者向けに、環境構築手順・大会ルール等、大会に参加するために必要な情報をまとめています。
 
 2021年に行った第３回自動運転AIチャレンジと異なり、本大会では自動運転ソフトウェア[Autoware.universe](https://github.com/autowarefoundation/autoware.universe)と自動運転シミュレータ[AWSIM](https://github.com/tier4/AWSIM)を使用します。下記の手順に沿って環境を構築し、大会へご参加ください。
 
