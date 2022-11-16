@@ -138,7 +138,7 @@ AutowareとAWSIMを実行し、以下の手順を参考に動作確認をお願�
 2. 自己位置推定ができていることを確認
 <img src="https://user-images.githubusercontent.com/113989589/201994441-6d6da145-37de-48a4-8be7-2054c592be46.png" width="50%">  
 
-3. 正しく推定できていなければ、タブにある2D Pose Estimateを選択し、実際の車両の位置をドラッグで指定。
+3. 正しく推定できていなければ、タブにある2D Pose Estimateを選択し、実際の車両の位置をドラッグで指定
 <img src="https://user-images.githubusercontent.com/113989589/201995212-20b73d6a-2e67-4e13-8829-5d8184241eaf.png" width="50%">  
 
 4. タブにある2D Goal Poseを選択し、ゴールポジションをドラッグで指定
