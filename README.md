@@ -3,7 +3,7 @@
 
 更新日：2022/11/16（暫定情報掲載中）
 
-本リポジトリでは、[自動運転AIチャレンジ2022（シミュレーション）](https://www.jsae.or.jp/jaaic/index.html)の参加者向けに、環境構築手順・大会ルール等、大会に参加するために必要な情報をまとめています。
+本リポジトリでは、[自動運転AIチャレンジ2022（シミュレーション）](https://www.jsae.or.jp/jaaic/index.html)の参加者向けに、環境構築手順・大会ルール等、大会に参加するために必要な情報をまとめています。競技内容・ルールについては[RULE.md](./RULE.md)をご確認ください。
 
 2021年に行った第３回自動運転AIチャレンジと異なり、本大会では自動運転ソフトウェア[Autoware.universe](https://github.com/autowarefoundation/autoware.universe)と自動運転シミュレータ[AWSIM](https://github.com/tier4/AWSIM)を使用します。下記の手順に沿って環境を構築し、大会へご参加ください。
 
@@ -31,7 +31,7 @@ GPU: NVIDIA Geforce GTX 1080 以上
 詳細は[こちら](https://autowarefoundation.github.io/autoware.universe/main/)  
 
 #### **AWSIMシミュレータ動作PC**  
-OS: Ubuntu 20.04 or Windows 10  
+OS: Ubuntu 20.04 or windows 10  
 CPU: Intel Corei7 (6 cores and 12 thread) 以上    
 GPU: NVIDIA Geforce RTX 2080 Ti 以上  
 詳細は[こちら](https://tier4.github.io/AWSIM/GettingStarted/SetupUnityProject/)  
@@ -61,7 +61,7 @@ sudo apt update
 sudo ubuntu-drivers autoinstall
 ```
 
-4. 再起動の後、インストールできていることを確認
+4. 再起動し、nvidia-smiを用いてインストールできていることを確認
 ```
 nvidia-smi 
 ```
@@ -75,7 +75,7 @@ nvidia-smi
 sudo apt update
 ```
 
-2. インストール
+2. libvulkan1をインストール
 ```
 sudo apt install libvulkan1
 ``` 
@@ -132,7 +132,7 @@ ros2 launch autoware_launch e2e_simulator.launch.xml vehicle_model:=sample_vehic
 
 ### **動作確認**
 AutowareとAWSIMを実行し、以下の手順を参考に動作確認をお願いします。
-1. Rviz2のタブにあるPanelからadd new Panelを開き、AutowareStatePanelを追加
+1. RvizのタブにあるPanelからadd new Panelを開き、AutowareStatePanelを追加
 <img src="https://user-images.githubusercontent.com/113989589/202221441-aa264504-79cd-40c4-95d6-8eeef9b67993.png" width="50%"><img src="https://user-images.githubusercontent.com/113989589/202221955-2f803b65-1928-46db-9492-98575f015958.png" width="50%">  
 
 2. 自己位置推定ができていることを確認
