@@ -1,5 +1,5 @@
 # aichallenge2022-sim  
-日本語 | [English](https://github.com/Reee009876/test/blob/main/README_en.md)  
+日本語 | [English](https://github.com/AutomotiveAIChallenge/aichallenge2022-sim/blob/main/README_en.md)  
 
 更新日：2022/11/16（暫定情報掲載中）
 
