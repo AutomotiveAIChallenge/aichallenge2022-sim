@@ -108,7 +108,7 @@ Please install the following:
 docker pull ghcr.io/automotiveaichallenge/aichallenge2022-sim/autoware-universe-cuda:latest
 ```
 
-2. Get the map data for the competition. 
+2. Get the data for the competition. 
 ```
 git clone https://github.com/AutomotiveAIChallenge/aichallenge2022-sim
 ```
