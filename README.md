@@ -108,7 +108,7 @@ sudo apt install libvulkan1
 - [rocker](https://github.com/osrf/rocker)
   - Dockerコンテナ内のRviz、rqtなどのGUIを使用するために用います。
 - [Nvidia Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html)
-- [git lifs](https://packagecloud.io/github/git-lfs/install)
+- [git lfs](https://packagecloud.io/github/git-lfs/install)
 #### **Dockerイメージの準備・起動 〜 Autowareの準備・起動**  
 1. Dockerイメージを入手
 ```
