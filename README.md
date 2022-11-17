@@ -119,24 +119,21 @@ docker pull ghcr.io/automotiveaichallenge/aichallenge2022-sim/autoware-universe-
 ```
 sudo apt install -y git-lfs
 git lfs clone https://github.com/AutomotiveAIChallenge/aichallenge2022-sim
-```
+```3
 
-3. ダウロードしたフォルダに移動  
+3. rockerを起動
 ```
 cd ./aichallenge2022-sim
+rocker --nvidia --x11 --user --net host --privileged --volume autoware:/aichallenge -- ghcr.io/automotiveaichallenge/aichallenge2022-sim/autoware-universe-cuda:latest
 ```
 
-4. rockerを起動
+4. Autowareを起動
 ```
-rocker --nvidia --x11 --user --net host --privileged --volume autoware:/home/$USER/autoware -- ghcr.io/automotiveaichallenge/aichallenge2022-sim/autoware-universe-cuda:latest
-```
-
-5. Autowareを起動
-```
-ros2 launch autoware_launch e2e_simulator.launch.xml vehicle_model:=sample_vehicle sensor_model:=awsim_sensor_kit map_path:=autoware/nishishinjuku_autoware_map
+cd /aichallenge
+ros2 launch autoware_launch e2e_simulator.launch.xml vehicle_model:=sample_vehicle sensor_model:=awsim_sensor_kit map_path:=nishishinjuku_autoware_map
 ```
 
-6. 下記のような画面(Rviz2)が表示されることを確認
+5. 下記のような画面(Rviz2)が表示されることを確認
 <img src="https://user-images.githubusercontent.com/113989589/202221115-a3f9ef16-453f-4a7c-bb57-be362886146c.png" width="50%">  
 
 ※Autowareの使い方は[公式ドキュメント](https://autowarefoundation.github.io/autoware-documentation/main/)を参考にしてください。
