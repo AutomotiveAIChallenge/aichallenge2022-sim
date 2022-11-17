@@ -137,10 +137,10 @@ ros2 launch autoware_launch e2e_simulator.launch.xml vehicle_model:=sample_vehic
 ```
 
 5. You will see the Rviz2 window: 
-<img src="https://user-images.githubusercontent.com/113989589/202221115-a3f9ef16-453f-4a7c-bb57-be362886146c.png" width="50%">  
-※For how to use Autoware, refer to [the official documentation](https://autowarefoundation.github.io/autoware-documentation/main/). 
+<img src="https://user-images.githubusercontent.com/113989589/202221115-a3f9ef16-453f-4a7c-bb57-be362886146c.png" width="50%"> 
 
 
+※For how to use Autoware, refer to [the official documentation](https://autowarefoundation.github.io/autoware-documentation/main/)
 
 ### **Operation Verification**
 To verify that AWSIM and Autoware are installed and running, follow these steps. 
