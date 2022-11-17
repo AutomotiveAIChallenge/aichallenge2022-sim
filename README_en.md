@@ -120,7 +120,8 @@ docker pull ghcr.io/automotiveaichallenge/aichallenge2022-sim/autoware-universe-
 
 2. Get the data for the competition. 
 ```
-git clone https://github.com/AutomotiveAIChallenge/aichallenge2022-sim
+sudo apt install -y git-lfs
+git lfs clone https://github.com/AutomotiveAIChallenge/aichallenge2022-sim
 ```
 
 3. Go into the directory.   
