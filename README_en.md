@@ -46,7 +46,7 @@ If that, you can use topic communication without additional settings. In the unl
 ## Environment Setup 
 
 
-### **AWSIM**
+### **AWSIM(Ubuntu)**
 #### Advance Preparation 
 ##### **Installing NVIDIA Drivers**
 1. Add the repository. 
@@ -83,14 +83,24 @@ sudo apt update
 sudo apt install libvulkan1
 ``` 
 
-#### **コースの準備**
+#### **Course Preparation**
 1.　Download and unzip the executable of the course for the competition.    
 Tutorial: [click here](https://drive.google.com/drive/folders/1C9bvsDmBwyz0dpjVC0rFpLNfdovWAJ5_)   
 2. Change "aichallenge_tutorial_ubuntu.x86_64" permissions as shown below:   
-<img src="https://user-images.githubusercontent.com/113989589/202225167-f3058a84-c268-4cc5-838a-28dad2c232de.png" width="30%">  
+<img src="https://user-images.githubusercontent.com/113989589/202225167-f3058a84-c268-4cc5-838a-28dad2c232de.png" width="40%">  
 3. Double-click the file to start AWSIM.   
 4. You will see the AWSIM window:   
-<img src="https://user-images.githubusercontent.com/113989589/201992906-734b40f1-4c95-45e0-9edb-ffe0af9f55e3.png" width="50%">
+<img src="https://user-images.githubusercontent.com/113989589/201992906-734b40f1-4c95-45e0-9edb-ffe0af9f55e3.png" width="70%">
+
+### **AWSIM(Windows10)**
+
+#### **Course Preparation**
+1.　Download and unzip the executable of the course for the competition.    
+Tutorial: [click here](https://drive.google.com/drive/folders/1C9bvsDmBwyz0dpjVC0rFpLNfdovWAJ5_)   
+2. Double-click the file to start AWSIM.   
+3. You will see the AWSIM window:   
+<img src="https://user-images.githubusercontent.com/113989589/202367079-ff4fc373-a296-4091-aa49-416c0b69df1f.png" width="70%">
+
 
 ### **Autoware**
 We recommend that you use the Docker image of Autoware (using CUDA) for the competition. 
@@ -137,22 +147,23 @@ ros2 launch autoware_launch e2e_simulator.launch.xml vehicle_model:=sample_vehic
 ### **Operation Verification**
 To verify that AWSIM and Autoware are installed and running, follow these steps. 
 1. Click "Panels" -> "Add new panel" from the Panel in the Rviz2 tab and add AutowareStatePanel.
-  <img src="https://user-images.githubusercontent.com/113989589/202221441-aa264504-79cd-40c4-95d6-8eeef9b67993.png" width="50%"><img src="https://user-images.githubusercontent.com/113989589/202221955-2f803b65-1928-46db-9492-98575f015958.png" width="50%">
+  <img src="https://user-images.githubusercontent.com/113989589/202221441-aa264504-79cd-40c4-95d6-8eeef9b67993.png" width="70%">
+  <img src="https://user-images.githubusercontent.com/113989589/202221955-2f803b65-1928-46db-9492-98575f015958.png" width="70%">
 
 2. You can see that self-location estimation is working.
-  <img src="https://user-images.githubusercontent.com/113989589/201994441-6d6da145-37de-48a4-8be7-2054c592be46.png" width="50%">  
+  <img src="https://user-images.githubusercontent.com/113989589/201994441-6d6da145-37de-48a4-8be7-2054c592be46.png" width="70%">  
 
 3. Note that in some cases, you may have to select 2D Pose Estimate in the tab and drag the actual position of the vehicle.
-  <img src="https://user-images.githubusercontent.com/113989589/201995212-20b73d6a-2e67-4e13-8829-5d8184241eaf.png" width="50%">  
+  <img src="https://user-images.githubusercontent.com/113989589/201995212-20b73d6a-2e67-4e13-8829-5d8184241eaf.png" width="70%">  
 
 4. Select 2D Goal Pose in the tab and specify the goal position by dragging.
-  <img src="https://user-images.githubusercontent.com/113989589/201996010-92560a86-cc3c-4684-a04e-c161b0b603ea.png" width="50%">  
+  <img src="https://user-images.githubusercontent.com/113989589/201996010-92560a86-cc3c-4684-a04e-c161b0b603ea.png" width="70%">  
 
 5. You can see that the route is displayed and "WAITING FOR ENGAGE" status as shown below (it can take several minutes to run):
-  <img src="https://user-images.githubusercontent.com/113989589/201994813-1d6ef19e-3485-4812-aeba-e7ee92eff110.png" width="50%">  
+  <img src="https://user-images.githubusercontent.com/113989589/201994813-1d6ef19e-3485-4812-aeba-e7ee92eff110.png" width="70%">  
 
 6. Press Engage button, you can see that self-driving started.
-  <img src="https://user-images.githubusercontent.com/113989589/201994840-57f2288d-c311-4e7b-a2fe-97a030d5351e.png" width="50%">  
+  <img src="https://user-images.githubusercontent.com/113989589/201994840-57f2288d-c311-4e7b-a2fe-97a030d5351e.png" width="70%">  
 
 ## Others
 ### Notification of updates
