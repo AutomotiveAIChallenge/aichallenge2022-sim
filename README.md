@@ -34,7 +34,7 @@ GPU: NVIDIA Geforce GTX 1080 以上
 OS: Ubuntu 20.04 or windows 10  
 CPU: Intel Corei7 (6 cores and 12 thread) 以上    
 GPU: NVIDIA Geforce RTX 2080 Ti 以上  
-詳細は[こちら](https://tier4.github.io/AWSIM/GettingStarted/SetupUnityProject/)  
+詳細は[こちら](https://tier4.github.io/AWSIM/GettingStarted/QuickStartDemo/)  
 
 ※Autoware動作PCとAWSIM動作PCは、同じネットワーク内に配置してください。    
 配置できていれば、基本的には追加設定をすることなく、PC間のトピック通信は可能です。万が一、トピック通信ができなかった場合はファイアーウォールの解除、もしくはルールの見直しをお願いします。
