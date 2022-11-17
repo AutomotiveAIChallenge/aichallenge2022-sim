@@ -119,7 +119,7 @@ docker pull ghcr.io/automotiveaichallenge/aichallenge2022-sim/autoware-universe-
 ```
 sudo apt install -y git-lfs
 git lfs clone https://github.com/AutomotiveAIChallenge/aichallenge2022-sim
-```3
+```
 
 3. rockerを起動
 ```
