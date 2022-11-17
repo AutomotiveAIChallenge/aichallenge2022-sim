@@ -124,22 +124,19 @@ sudo apt install -y git-lfs
 git lfs clone https://github.com/AutomotiveAIChallenge/aichallenge2022-sim
 ```
 
-3. Go into the directory.   
+3. Start rocker. 
 ```
 cd ./aichallenge2022-sim
+rocker --nvidia --x11 --user --net host --privileged --volume autoware:/aichallenge -- ghcr.io/automotiveaichallenge/aichallenge2022-sim/autoware-universe-cuda:latest
 ```
 
-4. Start rocker. 
+4. Start Autoware. 
 ```
-rocker --nvidia --x11 --user --net host --privileged --volume autoware:/home/$USER/autoware -- ghcr.io/automotiveaichallenge/aichallenge2022-sim/autoware-universe-cuda:latest
-```
-
-5. Start Autoware. 
-```
-ros2 launch autoware_launch e2e_simulator.launch.xml vehicle_model:=sample_vehicle sensor_model:=awsim_sensor_kit map_path:=autoware/nishishinjuku_autoware_map
+cd /aichallenge
+ros2 launch autoware_launch e2e_simulator.launch.xml vehicle_model:=sample_vehicle sensor_model:=awsim_sensor_kit map_path:=nishishinjuku_autoware_map
 ```
 
-6. You will see the Rviz2 window: 
+5. You will see the Rviz2 window: 
 <img src="https://user-images.githubusercontent.com/113989589/202221115-a3f9ef16-453f-4a7c-bb57-be362886146c.png" width="50%">  
 ※For how to use Autoware, refer to [the official documentation](https://autowarefoundation.github.io/autoware-documentation/main/). 
 
