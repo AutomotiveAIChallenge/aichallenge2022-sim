@@ -84,10 +84,20 @@ sudo apt install libvulkan1
 1.　大会用コースの実行ファイルをダウンロードし、解凍  
 ・チュートリアル：[ファイルはこちら](https://drive.google.com/drive/folders/1C9bvsDmBwyz0dpjVC0rFpLNfdovWAJ5_)   
 2. パーミッションを図のように変更  
-<img src="https://user-images.githubusercontent.com/113989589/202225167-f3058a84-c268-4cc5-838a-28dad2c232de.png" width="30%">  
+<img src="https://user-images.githubusercontent.com/113989589/202225167-f3058a84-c268-4cc5-838a-28dad2c232de.png" width="40%">  
 3. ファイルをダブルクリックで起動    
 4. 下記のような画面が表示されることを確認  
-<img src="https://user-images.githubusercontent.com/113989589/201992906-734b40f1-4c95-45e0-9edb-ffe0af9f55e3.png" width="50%">
+<img src="https://user-images.githubusercontent.com/113989589/201992906-734b40f1-4c95-45e0-9edb-ffe0af9f55e3.png" width="70%">
+
+### **AWSIM（Windows10）**
+#### **コースの準備**
+1.　大会用コースの実行ファイルをダウンロードし、解凍  
+・チュートリアル：[ファイルはこちら](https://drive.google.com/drive/folders/1C9bvsDmBwyz0dpjVC0rFpLNfdovWAJ5_)   
+2. ファイルをダブルクリックで起動    
+3. 下記のような画面が表示されることを確認  
+<img src="https://user-images.githubusercontent.com/113989589/202367079-ff4fc373-a296-4091-aa49-416c0b69df1f.png" width="70%">
+
+
 
 ### **Autoware**
 本大会用にAutowareの Docker イメージ(CUDA利用）を用意しておりますので、ご利用ください。
@@ -133,22 +143,23 @@ ros2 launch autoware_launch e2e_simulator.launch.xml vehicle_model:=sample_vehic
 ### **動作確認**
 AutowareとAWSIMを実行し、以下の手順を参考に動作確認をお願いします。
 1. RvizのタブにあるPanelからadd new Panelを開き、AutowareStatePanelを追加
-<img src="https://user-images.githubusercontent.com/113989589/202221441-aa264504-79cd-40c4-95d6-8eeef9b67993.png" width="50%"><img src="https://user-images.githubusercontent.com/113989589/202221955-2f803b65-1928-46db-9492-98575f015958.png" width="50%">  
+<img src="https://user-images.githubusercontent.com/113989589/202221441-aa264504-79cd-40c4-95d6-8eeef9b67993.png" width="70%">
+<img src="https://user-images.githubusercontent.com/113989589/202221955-2f803b65-1928-46db-9492-98575f015958.png" width="70%">  
 
 2. 自己位置推定ができていることを確認
-<img src="https://user-images.githubusercontent.com/113989589/201994441-6d6da145-37de-48a4-8be7-2054c592be46.png" width="50%">  
+<img src="https://user-images.githubusercontent.com/113989589/201994441-6d6da145-37de-48a4-8be7-2054c592be46.png" width="70%">  
 
 3. 正しく推定できていなければ、タブにある2D Pose Estimateを選択し、実際の車両の位置をドラッグで指定
-<img src="https://user-images.githubusercontent.com/113989589/201995212-20b73d6a-2e67-4e13-8829-5d8184241eaf.png" width="50%">  
+<img src="https://user-images.githubusercontent.com/113989589/201995212-20b73d6a-2e67-4e13-8829-5d8184241eaf.png" width="70%">  
 
 4. タブにある2D Goal Poseを選択し、ゴールポジションをドラッグで指定
-<img src="https://user-images.githubusercontent.com/113989589/201996010-92560a86-cc3c-4684-a04e-c161b0b603ea.png" width="50%">  
+<img src="https://user-images.githubusercontent.com/113989589/201996010-92560a86-cc3c-4684-a04e-c161b0b603ea.png" width="70%">  
 
 5. 画像のように、ルートが表示されている かつ 「waiting for engage」状態になっていることを確認（指定してから少し時間がかかります）
-<img src="https://user-images.githubusercontent.com/113989589/201994813-1d6ef19e-3485-4812-aeba-e7ee92eff110.png" width="50%">  
+<img src="https://user-images.githubusercontent.com/113989589/201994813-1d6ef19e-3485-4812-aeba-e7ee92eff110.png" width="70%">  
 
 6. engageボタンを押下し、自動運転が開始されることを確認  
-<img src="https://user-images.githubusercontent.com/113989589/201994840-57f2288d-c311-4e7b-a2fe-97a030d5351e.png" width="50%">  
+<img src="https://user-images.githubusercontent.com/113989589/201994840-57f2288d-c311-4e7b-a2fe-97a030d5351e.png" width="70%">  
 
 ## その他
 ### 更新等の通知に関して
