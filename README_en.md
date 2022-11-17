@@ -111,7 +111,7 @@ Please install the following:
 - [rocker](https://github.com/osrf/rocker)
   -  A tool to use Rviz, rqt, and other GUI application in Docker containers. 
 - [Nvidia Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html)
-- [git lifs](https://packagecloud.io/github/git-lfs/install)
+- [git lfs](https://packagecloud.io/github/git-lfs/install)
 #### **Starting Docker Image and Autoware**  
 1. Pull the Docker image using docker pull. 
 ```
