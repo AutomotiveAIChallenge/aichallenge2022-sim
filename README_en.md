@@ -37,7 +37,7 @@ For more information, [click here](https://autowarefoundation.github.io/autoware
 OS: Ubuntu 20.04 or Windows 10  
 CPU: Intel Corei7 (6 cores and 12 threads) or higher  
 GPU: NVIDIA Geforce RTX 2080 Ti or higher  
-For more information, [click here](https://tier4.github.io/AWSIM/GettingStarted/SetupUnityProject/)  .
+For more information, [click here](https://tier4.github.io/AWSIM/GettingStarted/QuickStartDemo/)  .
 
 ※PC should be on the same network. 
 If that, you can use topic communication without additional settings. In the unlikely event that topic communication is not possible, please deactivate the firewall or review the rules. 
