@@ -180,5 +180,5 @@ We generally reply to questions within two business days. Please note that depen
 
 For inquiries regarding an account of an online simulator, for example, if you cannot log in to the online simulator, please contact us. 
 
-email：ai-challenge@jsae.or.jp 
+email：info-ai@jsae.or.jp
 
