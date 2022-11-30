@@ -1,12 +1,18 @@
 # aichallenge2022-sim  
 日本語 | [English](https://github.com/AutomotiveAIChallenge/aichallenge2022-sim/blob/main/README_en.md)  
 
-更新日：2022/11/16（暫定情報掲載中）
+更新日：2022/11/30
 
-本リポジトリでは、[自動運転AIチャレンジ2022（シミュレーション）](https://www.jsae.or.jp/jaaic/index.html)の参加者向けに、環境構築手順・大会ルール等、大会に参加するために必要な情報をまとめています。
+本リポジトリでは、[自動運転AIチャレンジ2022（シミュレーション）](https://www.jsae.or.jp/jaaic/)の参加者向けに、環境構築手順・大会ルール等、大会に参加するために必要な情報をまとめています。
 
 2021年に行った第３回自動運転AIチャレンジと異なり、本大会では自動運転ソフトウェア[Autoware.universe](https://github.com/autowarefoundation/autoware.universe)と自動運転シミュレータ[AWSIM](https://github.com/tier4/AWSIM)を使用します。下記の手順に沿って環境を構築し、大会へご参加ください。
 
+大会ルールの詳細な説明は[RULE.md](/RULE.md)を参照ください。
+
+## コース選択
+本大会は初学者向けの「チャレンジコース」と上級者向けの「アドバンストコース」に分かれております。参加者の皆様には両コースに触れていただきご自身のスキルレベルに合わせて最終的にコースを選択していただきます。
+
+オンライン採点環境ではアドバンストコース・チャレンジコース両方への提出が可能ですが、コースを切り替える際にはそれまでの提出スコアを削除する必要があります。
 
 ## 動作環境
 本大会で使用していただくPCの動作環境として以下を推奨しております。
@@ -82,7 +88,8 @@ sudo apt install libvulkan1
 
 #### **コースの準備**
 1.　大会用コースの実行ファイルをダウンロードし、解凍  
-・チュートリアル：[ファイルはこちら](https://drive.google.com/drive/folders/1C9bvsDmBwyz0dpjVC0rFpLNfdovWAJ5_)   
+・チャレンジコース：[ファイルはこちら](https://drive.google.com/drive/u/0/folders/19ThwqQbOFkc201yZIM_OhoWKPuruEsW2)   
+・アドバンストコース：[ファイルはこちら](https://drive.google.com/drive/u/0/folders/12-2XlZgsE9mvjlT6b94skfY-6C6-5vI0)   
 2. パーミッションを図のように変更  
 <img src="https://user-images.githubusercontent.com/113989589/202225167-f3058a84-c268-4cc5-838a-28dad2c232de.png" width="40%">  
 3. ファイルをダブルクリックで起動    
@@ -92,7 +99,8 @@ sudo apt install libvulkan1
 ### **AWSIM（Windows10）**
 #### **コースの準備**
 1.　大会用コースの実行ファイルをダウンロードし、解凍  
-・チュートリアル：[ファイルはこちら](https://drive.google.com/drive/folders/1C9bvsDmBwyz0dpjVC0rFpLNfdovWAJ5_)   
+・チャレンジコース：[ファイルはこちら](https://drive.google.com/drive/u/0/folders/19ThwqQbOFkc201yZIM_OhoWKPuruEsW2)   
+・アドバンストコース：[ファイルはこちら](https://drive.google.com/drive/u/0/folders/12-2XlZgsE9mvjlT6b94skfY-6C6-5vI0)   
 2. ファイルをダブルクリックで起動    
 3. 下記のような画面が表示されることを確認  
 <img src="https://user-images.githubusercontent.com/113989589/202367079-ff4fc373-a296-4091-aa49-416c0b69df1f.png" width="70%">
@@ -109,6 +117,7 @@ sudo apt install libvulkan1
   - Dockerコンテナ内のRviz、rqtなどのGUIを使用するために用います。
 - [Nvidia Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html)
 - [git lfs](https://packagecloud.io/github/git-lfs/install)
+
 #### **Dockerイメージの準備・起動 〜 Autowareの準備・起動**  
 1. Dockerイメージを入手
 ```
@@ -127,18 +136,60 @@ cd ./aichallenge2022-sim
 rocker --nvidia --x11 --user --net host --privileged --volume autoware:/aichallenge -- ghcr.io/automotiveaichallenge/aichallenge2022-sim/autoware-universe-cuda:latest
 ```
 
-4. Autowareを起動
+### **サンプルコード(ROS2パッケージ)**
+
+#### **サンプルコードについて**
+参加者の皆様にはシナリオを遂行するROS2パッケージを作成していただきますが、本リポジトリ内でそのベースとなるサンプルコードとして`autoware/aichallenge_ws/src`に以下のROS2パッケージを提供しております。
+- aichallenge_launch
+  - 大元のlaunchファイル`aichallenge.launch.xml`を含んでいます。すべてのROS2ノードはこのlaunchファイルから起動されます。
+- aichallenge_eval
+  - スコア算出用のパッケージです。
+- aichallenge_score_msgs
+  - メッセージ定義を含みます。
+- aichallenge_submit
+  - このディレクトリの内容は自由に変更していただいて構いません。
+  - 提出時にはこのディレクトリの内容のみ提出していただきますので、参加者の皆さまが実装されたROS2パッケージはすべてこのディレクトリ内に配置してください。配布段階で以下のパッケージを含んでいます。
+  - aichallenge_submit_launch
+    - `aichallenge_submit_launch.launch.xml`が大元のlaunchファイル`aichallenge.launch.xml`から呼び出されますので、このlaunchファイルを適宜改修して皆様が実装されたROS2ノードが起動されるように設定してください。
+  - sample_code_cpp
+    - サンプルの自動走行実装です。
+
+### **サンプルコードビルド**
 ```
+# Rockerコンテナ内で
+cd /aichallenge/aichallenge_ws
+rosdep update
+rosdep install -y -r -i --from-paths src --ignore-src --rosdistro $ROS_DISTRO
+colcon build
+```
+
+皆様に作成していただいたROS2パッケージについても`aichallenge_ws/src/aichallenge_submit`以下に配置していただき、上記手順でビルドできるようにしてください。
+
+### **サンプルコード起動**
+```
+# Rockerコンテナ内で
+source /aichallenge/aichallenge_ws/install/setup.bash
+ros2 launch aichallenge_launch aichallenge.launch.xml
+```
+
+ここまででAutoware側の設定・実行は完了です。セットアップが正常に行われていれば、rvizには点群地図が表示されます。
+
+
+### **Autoware単体での動作確認**
+Autoware単体で動作確認を行う方法を記載します。
+
+1. Autowareを起動
+```
+# Rockerコンテナ内で
 cd /aichallenge
 ros2 launch autoware_launch e2e_simulator.launch.xml vehicle_model:=sample_vehicle sensor_model:=awsim_sensor_kit map_path:=nishishinjuku_autoware_map
 ```
 
-5. 下記のような画面(Rviz2)が表示されることを確認
+2. 下記のような画面(Rviz2)が表示されることを確認
 <img src="https://user-images.githubusercontent.com/113989589/202221115-a3f9ef16-453f-4a7c-bb57-be362886146c.png" width="50%">  
 
 ※Autowareの使い方は[公式ドキュメント](https://autowarefoundation.github.io/autoware-documentation/main/)を参考にしてください。
 
-### **動作確認**
 AutowareとAWSIMを実行し、以下の手順を参考に動作確認をお願いします。
 1. RvizのタブにあるPanelからadd new Panelを開き、AutowareStatePanelを追加
 <img src="https://user-images.githubusercontent.com/113989589/202221441-aa264504-79cd-40c4-95d6-8eeef9b67993.png" width="70%">
@@ -158,6 +209,9 @@ AutowareとAWSIMを実行し、以下の手順を参考に動作確認をお願�
 
 6. engageボタンを押下し、自動運転が開始されることを確認  
 <img src="https://user-images.githubusercontent.com/113989589/201994840-57f2288d-c311-4e7b-a2fe-97a030d5351e.png" width="70%">  
+
+## タイム取得
+タイム取得方法については[RULE.md](/RULE.md)を参照ください。
 
 ## その他
 ### 更新等の通知に関して

@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>aichallenge_submit_launch</name>
+  <version>0.1.0</version>
+  <description>The autoware_submit_launch package</description>
+
+  <maintainer email="kazumasa.sakiyama@tier4.jp">Kazumasa Sakiyama</maintainer>
+  <license>Apache License 2.0</license>
+
+  <buildtool_depend>ament_cmake_auto</buildtool_depend>
+
+  <exec_depend>sample_code_cpp</exec_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>
