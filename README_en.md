@@ -1,9 +1,9 @@
 # aichallenge2022-sim  
 [日本語](https://github.com/AutomotiveAIChallenge/aichallenge2022-sim) | English
 
-Last updated：2022/11/16（provisional information）  
+Last updated：2022/11/30
 
-This repository contains information for participants of the [Automated AI Challenge 2022 (Simulation)](https://www.jsae.or.jp/jaaic/index.html), including the procedure of building the development environment, competition rules, and other information.  
+This repository contains information for participants of the [Automated AI Challenge 2022 (Simulation)](https://www.jsae.or.jp/jaaic/), including the procedure of building the development environment, competition rules, and other information.  
 
 
 This competition will use autonomous driving software [Autoware.universe](https://github.com/autowarefoundation/autoware.universe) and a self-driving vehicles simulator [AWSIM](https://github.com/tier4/AWSIM), unlike the 3rd Automated Driving AI Challenge held in 2021. Please follow the steps below to build your environment and participate in the competition.   
