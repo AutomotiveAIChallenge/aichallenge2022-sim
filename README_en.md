@@ -9,7 +9,12 @@ This repository contains information for participants of the [Automated AI Chall
 This competition will use autonomous driving software [Autoware.universe](https://github.com/autowarefoundation/autoware.universe) and a self-driving vehicles simulator [AWSIM](https://github.com/tier4/AWSIM), unlike the 3rd Automated Driving AI Challenge held in 2021. Please follow the steps below to build your environment and participate in the competition.   
 
  
- 
+ See [RULE_en.md](/RULE_en.md) for a detailed explanation of the tournament rules.
+
+## Course Selection
+This competition is divided into a "Challenge Course" for beginners and an "Advanced Course" for experts. Participants will be exposed to both courses and will be asked to make a final course selection based on their own skill level.
+
+The online scoring environment allows submissions to both the Advanced and Challenge Courses, but you will need to delete your previous submitted scores when switching courses.
 
 ## Development Environment   
 We recommend that you use the following system requirements in this tournament. 
@@ -130,38 +135,80 @@ cd ./aichallenge2022-sim
 rocker --nvidia --x11 --user --net host --privileged --volume autoware:/aichallenge -- ghcr.io/automotiveaichallenge/aichallenge2022-sim/autoware-universe-cuda:latest
 ```
 
-4. Start Autoware. 
+### **Sample code (ROS2 package)**
+
+#### **About the sample code**
+We provide the following ROS2 package in `autoware/aichallenge_ws/src` as a sample code to be used as a base in this repository.
+- aichallenge_launch
+  - Contains the main launch file `aichallenge.launch.xml`. All ROS2 nodes are launched from this launch file.
+- aichallenge_eval
+  - Package for score calculation.
+- aichallenge_score_msgs
+  - Contains message definitions.
+- aichallenge_submit
+  - The contents of this directory may be freely modified.
+  - All ROS2 packages implemented by participants should be placed in this directory, as only the contents of this directory will be submitted at the time of submission. The following packages are included in the distribution phase
+  - aichallenge_submit_launch
+    - Since `aichallenge_submit_launch.launch.xml` is called from the original launch file `aichallenge.launch.xml`, so please modify this launch file so that the ROS2 node in which you are implemented will be launched.
+  - sample_code_cpp
+    - This is a sample automatic run implementation.
+
+### **sample code build**
+````
+# In the Rocker container
+cd /aichallenge/aichallenge_ws
+rosdep update
+rosdep install -y -r -i --from-paths src --ignore-src --rosdistro $ROS_DISTRO
+colcon build
+````
+
+Please place the ROS2 packages you have created under `aichallenge_ws/src/aichallenge_submit` so that they can be built using the above procedure.
+
+### **Example code startup**.
+````
+# In the Rocker container
+source /aichallenge/aichallenge_ws/install/setup.bash
+ros2 launch aichallenge_launch aichallenge.launch.xml
+````
+
+At this point, the setup and execution on the Autoware side is complete. If the setup was successful, rviz will display a point cloud map.
+
+### **Confirmation of Autoware stand-alone operation**
+
+1. Start Autoware. 
 ```
 cd /aichallenge
 ros2 launch autoware_launch e2e_simulator.launch.xml vehicle_model:=sample_vehicle sensor_model:=awsim_sensor_kit map_path:=nishishinjuku_autoware_map
 ```
 
-5. You will see the Rviz2 window: 
+2. You will see the Rviz2 window: 
 <img src="https://user-images.githubusercontent.com/113989589/202221115-a3f9ef16-453f-4a7c-bb57-be362886146c.png" width="50%"> 
 
 
 ※For how to use Autoware, refer to [the official documentation](https://autowarefoundation.github.io/autoware-documentation/main/)
 
-### **Operation Verification**
-To verify that AWSIM and Autoware are installed and running, follow these steps. 
+Please run Autoware and AWSIM and check the operation by referring to the following steps.
 1. Click "Panels" -> "Add new panel" from the Panel in the Rviz2 tab and add AutowareStatePanel.
   <img src="https://user-images.githubusercontent.com/113989589/202221441-aa264504-79cd-40c4-95d6-8eeef9b67993.png" width="70%">
   <img src="https://user-images.githubusercontent.com/113989589/202221955-2f803b65-1928-46db-9492-98575f015958.png" width="70%">
 
-2. You can see that self-location estimation is working.
+1. You can see that self-location estimation is working.
   <img src="https://user-images.githubusercontent.com/113989589/201994441-6d6da145-37de-48a4-8be7-2054c592be46.png" width="70%">  
 
-3. Note that in some cases, you may have to select 2D Pose Estimate in the tab and drag the actual position of the vehicle.
+1. Note that in some cases, you may have to select 2D Pose Estimate in the tab and drag the actual position of the vehicle.
   <img src="https://user-images.githubusercontent.com/113989589/201995212-20b73d6a-2e67-4e13-8829-5d8184241eaf.png" width="70%">  
 
-4. Select 2D Goal Pose in the tab and specify the goal position by dragging.
+1. Select 2D Goal Pose in the tab and specify the goal position by dragging.
   <img src="https://user-images.githubusercontent.com/113989589/201996010-92560a86-cc3c-4684-a04e-c161b0b603ea.png" width="70%">  
 
-5. You can see that the route is displayed and "WAITING FOR ENGAGE" status as shown below (it can take several minutes to run):
+1. You can see that the route is displayed and "WAITING FOR ENGAGE" status as shown below (it can take several minutes to run):
   <img src="https://user-images.githubusercontent.com/113989589/201994813-1d6ef19e-3485-4812-aeba-e7ee92eff110.png" width="70%">  
 
-6. Press Engage button, you can see that self-driving started.
+1. Press Engage button, you can see that self-driving started.
   <img src="https://user-images.githubusercontent.com/113989589/201994840-57f2288d-c311-4e7b-a2fe-97a030d5351e.png" width="70%">  
+
+## Time Measurement
+Please refer to [RULE_en.md](/RULE_en.md) for the time acquisition method.
 
 ## Others
 ### Notification of updates

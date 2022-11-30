@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+    <!-- Autoware -->
+    <include file="$(find-pkg-share autoware_launch)/launch/e2e_simulator.launch.xml">
+        <arg name="vehicle_model" value="sample_vehicle"/>
+        <arg name="sensor_model" value="awsim_sensor_kit"/>
+        <arg name="map_path" value="/aichallenge/nishishinjuku_autoware_map"/>
+        <arg name="rviz" value="false"/>
+    </include>
+    
+    <!-- Sample Code -->
+    <node pkg="sample_code_cpp" exec="sample" name="sample" output="screen"/>
+</launch>
