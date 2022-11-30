@@ -90,7 +90,8 @@ sudo apt install libvulkan1
 
 #### **Course Preparation**
 1.　Download and unzip the executable of the course for the competition.    
-・Tutorial: [click here](https://drive.google.com/drive/folders/1C9bvsDmBwyz0dpjVC0rFpLNfdovWAJ5_)   
+・Challenge Course：[click here](https://drive.google.com/drive/u/0/folders/19ThwqQbOFkc201yZIM_OhoWKPuruEsW2)   
+・Advanced Course：[click here](https://drive.google.com/drive/u/0/folders/12-2XlZgsE9mvjlT6b94skfY-6C6-5vI0)   
 2. Change "aichallenge_tutorial_ubuntu.x86_64" permissions as shown below:   
 <img src="https://user-images.githubusercontent.com/113989589/202225167-f3058a84-c268-4cc5-838a-28dad2c232de.png" width="40%">  
 3. Double-click the file to start AWSIM.   
@@ -101,7 +102,8 @@ sudo apt install libvulkan1
 
 #### **Course Preparation**
 1.　Download and unzip the executable of the course for the competition.    
-・Tutorial: [click here](https://drive.google.com/drive/folders/1C9bvsDmBwyz0dpjVC0rFpLNfdovWAJ5_)   
+・Challenge Course：[click here](https://drive.google.com/drive/u/0/folders/19ThwqQbOFkc201yZIM_OhoWKPuruEsW2)   
+・Advanced Course：[click here](https://drive.google.com/drive/u/0/folders/12-2XlZgsE9mvjlT6b94skfY-6C6-5vI0)   
 2. Double-click the file to start AWSIM.   
 3. You will see the AWSIM window:   
 <img src="https://user-images.githubusercontent.com/113989589/202367079-ff4fc373-a296-4091-aa49-416c0b69df1f.png" width="70%">
