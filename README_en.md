@@ -1,7 +1,7 @@
 # aichallenge2022-sim  
 [日本語](https://github.com/AutomotiveAIChallenge/aichallenge2022-sim) | English
 
-Last updated：2022/11/30
+Last updated：2022/12/12
 
 This repository contains information for participants of the [Automated AI Challenge 2022 (Simulation)](https://www.jsae.or.jp/jaaic/), including the procedure of building the development environment, competition rules, and other information.  
 
@@ -21,7 +21,7 @@ We recommend that you use the following system requirements in this tournament.
 
 OS: Ubuntu 20.04  
 CPU: Intel Corei7 (8 cores) or higher  
-GPU: NVIDIA Geforce 3080 (VRAM 12 GB) or higher  
+GPU: NVIDIA Geforce RTX 3080 (VRAM 12 GB) or higher  
 Memory: 32 GB or more  
 Storage: SSD 30 GB or higher     
 
@@ -90,8 +90,7 @@ sudo apt install libvulkan1
 
 #### **Course Preparation**
 1.　Download and unzip the executable of the course for the competition.    
-・Challenge Course：[click here](https://drive.google.com/drive/u/0/folders/19ThwqQbOFkc201yZIM_OhoWKPuruEsW2)   
-・Advanced Course：[click here](https://drive.google.com/drive/u/0/folders/12-2XlZgsE9mvjlT6b94skfY-6C6-5vI0)   
+・Tutorial: [click here](https://drive.google.com/drive/folders/1C9bvsDmBwyz0dpjVC0rFpLNfdovWAJ5_)   
 2. Change "aichallenge_tutorial_ubuntu.x86_64" permissions as shown below:   
 <img src="https://user-images.githubusercontent.com/113989589/202225167-f3058a84-c268-4cc5-838a-28dad2c232de.png" width="40%">  
 3. Double-click the file to start AWSIM.   
@@ -102,8 +101,7 @@ sudo apt install libvulkan1
 
 #### **Course Preparation**
 1.　Download and unzip the executable of the course for the competition.    
-・Challenge Course：[click here](https://drive.google.com/drive/u/0/folders/19ThwqQbOFkc201yZIM_OhoWKPuruEsW2)   
-・Advanced Course：[click here](https://drive.google.com/drive/u/0/folders/12-2XlZgsE9mvjlT6b94skfY-6C6-5vI0)   
+・Tutorial: [click here](https://drive.google.com/drive/folders/1C9bvsDmBwyz0dpjVC0rFpLNfdovWAJ5_)   
 2. Double-click the file to start AWSIM.   
 3. You will see the AWSIM window:   
 <img src="https://user-images.githubusercontent.com/113989589/202367079-ff4fc373-a296-4091-aa49-416c0b69df1f.png" width="70%">
@@ -119,6 +117,7 @@ Please install the following:
   -  A tool to use Rviz, rqt, and other GUI application in Docker containers. 
 - [Nvidia Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html)
 - [git lfs](https://packagecloud.io/github/git-lfs/install)
+- [ROS2](https://docs.ros.org/en/galactic/index.html)（Confirmed Operation：Galactic）
 #### **Starting Docker Image and Autoware**  
 1. Pull the Docker image using docker pull. 
 ```
@@ -175,39 +174,39 @@ ros2 launch aichallenge_launch aichallenge.launch.xml
 
 At this point, the setup and execution on the Autoware side is complete. If the setup was successful, rviz will display a point cloud map.
 
-### **Confirmation of Autoware stand-alone operation**
-
-1. Start Autoware. 
+### **Operation Verification**
+This section describes how to check the operation using Autoware and AWSIM.
+1. Start AWSIM.
+2. Start Autoware. 
 ```
 cd /aichallenge
 ros2 launch autoware_launch e2e_simulator.launch.xml vehicle_model:=sample_vehicle sensor_model:=awsim_sensor_kit map_path:=nishishinjuku_autoware_map
 ```
 
-2. You will see the Rviz2 window: 
+3. You will see the Rviz2 window: 
 <img src="https://user-images.githubusercontent.com/113989589/202221115-a3f9ef16-453f-4a7c-bb57-be362886146c.png" width="50%"> 
 
 
 ※For how to use Autoware, refer to [the official documentation](https://autowarefoundation.github.io/autoware-documentation/main/)
 
-Please run Autoware and AWSIM and check the operation by referring to the following steps.
-1. Click "Panels" -> "Add new panel" from the Panel in the Rviz2 tab and add AutowareStatePanel.
+4. Click "Panels" -> "Add new panel" from the Panel in the Rviz2 tab and add AutowareStatePanel.
   <img src="https://user-images.githubusercontent.com/113989589/202221441-aa264504-79cd-40c4-95d6-8eeef9b67993.png" width="70%">
   <img src="https://user-images.githubusercontent.com/113989589/202221955-2f803b65-1928-46db-9492-98575f015958.png" width="70%">
 
-1. You can see that self-location estimation is working.
-  <img src="https://user-images.githubusercontent.com/113989589/201994441-6d6da145-37de-48a4-8be7-2054c592be46.png" width="70%">  
+5. You can see that self-location estimation is working.
+<img src="https://user-images.githubusercontent.com/113989589/206501339-a713f027-d694-44d4-a15f-d5894bce0ae1.png" width="70%">  
 
-1. Note that in some cases, you may have to select 2D Pose Estimate in the tab and drag the actual position of the vehicle.
-  <img src="https://user-images.githubusercontent.com/113989589/201995212-20b73d6a-2e67-4e13-8829-5d8184241eaf.png" width="70%">  
+6. Note that in some cases, you may have to select 2D Pose Estimate in the tab and drag the actual position of the vehicle.
+<img src="https://user-images.githubusercontent.com/113989589/206501742-a9b8cd85-9ad2-49a3-af52-a67b45e66c17.png" width="70%">  
 
-1. Select 2D Goal Pose in the tab and specify the goal position by dragging.
-  <img src="https://user-images.githubusercontent.com/113989589/201996010-92560a86-cc3c-4684-a04e-c161b0b603ea.png" width="70%">  
+7. Select 2D Goal Pose in the tab and specify the goal position by dragging.
+<img src="https://user-images.githubusercontent.com/113989589/206502195-42aa0b92-928e-4759-8b25-f58a7a99680b.png" width="70%">  
 
-1. You can see that the route is displayed and "WAITING FOR ENGAGE" status as shown below (it can take several minutes to run):
-  <img src="https://user-images.githubusercontent.com/113989589/201994813-1d6ef19e-3485-4812-aeba-e7ee92eff110.png" width="70%">  
+8. You can see that the route is displayed and "WAITING FOR ENGAGE" status as shown below (it can take several minutes to run):
+<img src="https://user-images.githubusercontent.com/113989589/206502874-6bd0e54e-0b04-45b5-a1f6-a83605a6c972.png" width="70%">  
 
-1. Press Engage button, you can see that self-driving started.
-  <img src="https://user-images.githubusercontent.com/113989589/201994840-57f2288d-c311-4e7b-a2fe-97a030d5351e.png" width="70%">  
+9. Press Engage button, you can see that self-driving started.
+<img src="https://user-images.githubusercontent.com/113989589/206503383-cd28fb0c-2553-45e6-bf98-b9b1d1412991.png" width="70%">  
 
 ## Time Measurement
 Please refer to [RULE_en.md](/RULE_en.md) for the time acquisition method.

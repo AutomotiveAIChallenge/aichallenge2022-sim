@@ -1,0 +1,2 @@
+autoware/nishishinjuku_autoware_map/lanelet2_map.osm filter=lfs diff=lfs merge=lfs -text
+autoware/nishishinjuku_autoware_map/pointcloud_map.pcd filter=lfs diff=lfs merge=lfs -text
