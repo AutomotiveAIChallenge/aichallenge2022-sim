@@ -1,7 +1,7 @@
 # aichallenge2022-sim  
 日本語 | [English](https://github.com/AutomotiveAIChallenge/aichallenge2022-sim/blob/main/README_en.md)  
 
-更新日：2022/11/30
+更新日：2022/12/12
 
 本リポジトリでは、[自動運転AIチャレンジ2022（シミュレーション）](https://www.jsae.or.jp/jaaic/)の参加者向けに、環境構築手順・大会ルール等、大会に参加するために必要な情報をまとめています。
 
@@ -15,6 +15,7 @@
 オンライン採点環境ではアドバンストコース・チャレンジコース両方への提出が可能ですが、コースを切り替える際にはそれまでの提出スコアを削除する必要があります。
 
 ## 動作環境
+
 本大会で使用していただくPCの動作環境として以下を推奨しております。
 
 OS: Ubuntu 20.04    
@@ -117,8 +118,8 @@ sudo apt install libvulkan1
   - Dockerコンテナ内のRviz、rqtなどのGUIを使用するために用います。
 - [Nvidia Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html)
 - [git lfs](https://packagecloud.io/github/git-lfs/install)
-
-#### **Dockerイメージの準備・起動 〜 Autowareの準備・起動**  
+- [ROS2](https://docs.ros.org/en/galactic/index.html)（動作確認済みバージョン：Galactic）
+#### **Dockerイメージの準備・起動 〜 Autowareの準備**  
 1. Dockerイメージを入手
 ```
 docker pull ghcr.io/automotiveaichallenge/aichallenge2022-sim/autoware-universe-cuda:latest
@@ -175,40 +176,39 @@ ros2 launch aichallenge_launch aichallenge.launch.xml
 ここまででAutoware側の設定・実行は完了です。セットアップが正常に行われていれば、rvizには点群地図が表示されます。
 
 
-### **Autoware単体での動作確認**
-Autoware単体で動作確認を行う方法を記載します。
-
-1. Autowareを起動
+### **動作確認**
+AutowareとAWSIMを用いて動作確認を行う方法を記載します。
+1. AWSIMを起動
+2. Autowareを起動
 ```
 # Rockerコンテナ内で
 cd /aichallenge
 ros2 launch autoware_launch e2e_simulator.launch.xml vehicle_model:=sample_vehicle sensor_model:=awsim_sensor_kit map_path:=nishishinjuku_autoware_map
 ```
 
-2. 下記のような画面(Rviz2)が表示されることを確認
+3. 下記のような画面(Rviz2)が表示されることを確認
 <img src="https://user-images.githubusercontent.com/113989589/202221115-a3f9ef16-453f-4a7c-bb57-be362886146c.png" width="50%">  
 
 ※Autowareの使い方は[公式ドキュメント](https://autowarefoundation.github.io/autoware-documentation/main/)を参考にしてください。
 
-AutowareとAWSIMを実行し、以下の手順を参考に動作確認をお願いします。
-1. RvizのタブにあるPanelからadd new Panelを開き、AutowareStatePanelを追加
+4. RvizのタブにあるPanelからadd new Panelを開き、AutowareStatePanelを追加
 <img src="https://user-images.githubusercontent.com/113989589/202221441-aa264504-79cd-40c4-95d6-8eeef9b67993.png" width="70%">
 <img src="https://user-images.githubusercontent.com/113989589/202221955-2f803b65-1928-46db-9492-98575f015958.png" width="70%">  
 
-2. 自己位置推定ができていることを確認
-<img src="https://user-images.githubusercontent.com/113989589/201994441-6d6da145-37de-48a4-8be7-2054c592be46.png" width="70%">  
+5. 自己位置推定ができていることを確認
+<img src="https://user-images.githubusercontent.com/113989589/206501339-a713f027-d694-44d4-a15f-d5894bce0ae1.png" width="70%">  
 
-3. 正しく推定できていなければ、タブにある2D Pose Estimateを選択し、実際の車両の位置をドラッグで指定
-<img src="https://user-images.githubusercontent.com/113989589/201995212-20b73d6a-2e67-4e13-8829-5d8184241eaf.png" width="70%">  
+6. 正しく推定できていなければ、タブにある2D Pose Estimateを選択し、実際の車両の位置をドラッグで指定
+<img src="https://user-images.githubusercontent.com/113989589/206501742-a9b8cd85-9ad2-49a3-af52-a67b45e66c17.png" width="70%">  
 
-4. タブにある2D Goal Poseを選択し、ゴールポジションをドラッグで指定
-<img src="https://user-images.githubusercontent.com/113989589/201996010-92560a86-cc3c-4684-a04e-c161b0b603ea.png" width="70%">  
+7. タブにある2D Goal Poseを選択し、ゴールポジションをドラッグで指定
+<img src="https://user-images.githubusercontent.com/113989589/206502195-42aa0b92-928e-4759-8b25-f58a7a99680b.png" width="70%">  
 
-5. 画像のように、ルートが表示されている かつ 「waiting for engage」状態になっていることを確認（指定してから少し時間がかかります）
-<img src="https://user-images.githubusercontent.com/113989589/201994813-1d6ef19e-3485-4812-aeba-e7ee92eff110.png" width="70%">  
+8. 画像のように、ルートが表示されている かつ 「waiting for engage」状態になっていることを確認（指定してから少し時間がかかります）
+<img src="https://user-images.githubusercontent.com/113989589/206502874-6bd0e54e-0b04-45b5-a1f6-a83605a6c972.png" width="70%">  
 
-6. engageボタンを押下し、自動運転が開始されることを確認  
-<img src="https://user-images.githubusercontent.com/113989589/201994840-57f2288d-c311-4e7b-a2fe-97a030d5351e.png" width="70%">  
+9. engageボタンを押下し、自動運転が開始されることを確認  
+<img src="https://user-images.githubusercontent.com/113989589/206503383-cd28fb0c-2553-45e6-bf98-b9b1d1412991.png" width="70%">  
 
 ## タイム取得
 タイム取得方法については[RULE.md](/RULE.md)を参照ください。
