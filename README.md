@@ -124,7 +124,7 @@ sudo apt install libvulkan1
 ```
 docker pull ghcr.io/automotiveaichallenge/aichallenge2022-sim/autoware-universe-cuda:latest
 ```
-※上記の方法では時間がかかる方やタイムアウトしてしまう方↓  
+※上記の方法では長時間かかってしまう方・タイムアウトしてしまう方↓  
 [こちら](https://drive.google.com/drive/u/2/folders/1VZAcGzcFpOBJlmmybcGau7BaHzZW5Chc)に、イメージをtarにまとめたものを置きましたので、下記コマンドよりご利用ください。
 ```
 gzip -d aichallenge2022_sim_autoware_v2.0.tar.gz  
