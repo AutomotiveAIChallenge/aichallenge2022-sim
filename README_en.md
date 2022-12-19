@@ -1,7 +1,7 @@
 # aichallenge2022-sim  
 [日本語](https://github.com/AutomotiveAIChallenge/aichallenge2022-sim) | English
 
-Last updated：2022/12/12
+Last updated：2022/12/19
 
 This repository contains information for participants of the [Automated AI Challenge 2022 (Simulation)](https://www.jsae.or.jp/jaaic/), including the procedure of building the development environment, competition rules, and other information.  
 
@@ -123,6 +123,12 @@ Please install the following:
 ```
 docker pull ghcr.io/automotiveaichallenge/aichallenge2022-sim/autoware-universe-cuda:latest
 ```
+※If the above method takes a long time or times out, please use the following command.  
+Please use the following command, as we have placed a tar file of the images at [here](https://drive.google.com/drive/u/2/folders/1VZAcGzcFpOBJlmmybcGau7BaHzZW5Chc).
+````
+gzip -d aichallenge2022_sim_autoware_v2.0.tar.gz  
+docker load < aichallenge2022_sim_autoware_v2.0.tar
+````
 
 2. Get the data for the competition. 
 ```
