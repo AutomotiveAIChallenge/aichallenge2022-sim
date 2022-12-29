@@ -1,7 +1,7 @@
 # aichallenge2022-sim  
 [日本語](https://github.com/AutomotiveAIChallenge/aichallenge2022-sim) | English
 
-Last updated：2022/12/19
+Last updated：2022/12/29
 
 This repository contains information for participants of the [Automated AI Challenge 2022 (Simulation)](https://www.jsae.or.jp/jaaic/), including the procedure of building the development environment, competition rules, and other information.  
 
