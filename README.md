@@ -1,7 +1,7 @@
 # aichallenge2022-sim  
 日本語 | [English](https://github.com/AutomotiveAIChallenge/aichallenge2022-sim/blob/main/README_en.md)  
 
-更新日：2022/12/
+更新日：2022/12/19
 
 本リポジトリでは、[自動運転AIチャレンジ2022（シミュレーション）](https://www.jsae.or.jp/jaaic/)の参加者向けに、環境構築手順・大会ルール等、大会に参加するために必要な情報をまとめています。
 
