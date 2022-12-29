@@ -14,7 +14,7 @@ This competition is to compete the driving time by the automatic vehicle on the 
 ## Rules for the entire competition
 - You need to create source code to run through the scenario on [AWSIM](https://github.com/tier4/AWSIM)(simulator for automated driving) by utilizing [Autoware](https://github.com/autowarefoundation/autoware/tree/awsim-stable).
 - Participants will create source code to be able to complete the given scenario and verify it in the local environment first.
-- By uploading the source code to the online environment, the simulation will be run online. Finally, the ranking will be based on the time of the simulation results of the uploaded source code.
+- By uploading the source code to the online environment, the simulation will be run online. Finally, the ranking will be based on the time of the simulation results of the uploaded source code(Information on the online environment will be provided at a later date.).
 
 ## Scenario
 This section describes the events included in the scenario.
