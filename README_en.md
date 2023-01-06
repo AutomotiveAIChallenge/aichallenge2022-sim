@@ -118,16 +118,23 @@ Please install the following:
 - [Nvidia Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html)
 - [git lfs](https://packagecloud.io/github/git-lfs/install)
 - [ROS2](https://docs.ros.org/en/galactic/index.html)（Confirmed Operation：Galactic）
+
 #### **Starting Docker Image and Autoware**  
+
+##### **About Docker image (v3.1) (added on 1/6/2023)**
+Docker image is [autoware(fc50327ec926d5c9a04d385581f102a418af0403)](https://github.com/autowarefoundation/autoware/commit/fc50327ec926 d5c9a04d385581f102a418af0403) with the following applied.
+- [fix(pointcloud_preprocessor): add missed target dependency #2101](https://github.com/autowarefoundation/autoware.universe/pull/2101/files) with the following fixes applied.
+- Remove tier4_*_launch package
+  - Moved to aichallenge_submit, if you want to change autoware's launch, config file, please edit here.
+
 1. Pull the Docker image using docker pull. 
 ```
-docker pull ghcr.io/automotiveaichallenge/aichallenge2022-sim/autoware-universe-cuda:latest
+docker pull ghcr.io/automotiveaichallenge/aichallenge2022-sim/autoware-universe-cuda:3.1
 ```
 ※If the above method takes a long time or times out, please use the following command.  
-Please use the following command, as we have placed a tar file of the images at [here](https://drive.google.com/drive/u/2/folders/1VZAcGzcFpOBJlmmybcGau7BaHzZW5Chc).
+Please use the following command, as we have placed a tar file of the images at [here](https://drive.google.com/file/d/145HyoeXye_bbdT6tOVVCvbSM1MTm2CKI/view?usp=share_link).
 ````
-gzip -d aichallenge2022_sim_autoware_v2.0.tar.gz  
-docker load < aichallenge2022_sim_autoware_v2.0.tar
+docker load < aichallenge2022_sim_autoware_v3.1.tar.gz
 ````
 
 2. Get the data for the competition. 
@@ -139,7 +146,7 @@ git lfs clone https://github.com/AutomotiveAIChallenge/aichallenge2022-sim
 3. Start rocker. 
 ```
 cd ./aichallenge2022-sim
-rocker --nvidia --x11 --user --net host --privileged --volume autoware:/aichallenge -- ghcr.io/automotiveaichallenge/aichallenge2022-sim/autoware-universe-cuda:latest
+rocker --nvidia --x11 --user --net host --privileged --volume autoware:/aichallenge -- ghcr.io/automotiveaichallenge/aichallenge2022-sim/autoware-universe-cuda:3.1
 ```
 
 ### **Sample code (ROS2 package)**
@@ -159,6 +166,11 @@ We provide the following ROS2 package in `autoware/aichallenge_ws/src` as a samp
     - Since `aichallenge_submit_launch.launch.xml` is called from the original launch file `aichallenge.launch.xml`, so please modify this launch file so that the ROS2 node in which you are implemented will be launched.
   - sample_code_cpp
     - This is a sample automatic run implementation.
+  - obstacle_stop_planner_custom
+    - Fixes a problem with false detection of obstacles from obstacle_stop_planner in autoware.universe.
+  - tier4_*_launch
+    - This is a copy of autoware's launch file, partially edited. autoware's tier4_*_launch has been deleted, so be sure to leave this one in aichallenge_submit.
+    - It has been modified to call obstacle_stop_planner_custom instead of obstacle_stop_planner.
 
 ### **sample code build**
 ````
@@ -216,6 +228,75 @@ ros2 launch autoware_launch e2e_simulator.launch.xml vehicle_model:=sample_vehic
 
 ## Time Measurement
 Please refer to [RULE_en.md](/RULE_en.md) for the time acquisition method.
+
+## About the online evaluation environment
+### Outline of the execution flow in the online environment during evaluation
+To calculate the score, only the package `aichallenge_submit` is submitted from the web page of the online evaluation environment for automatic scoring.
+After submission, the online evaluation environment uses the scripts under `evaluation/` to perform the following steps.
+
+#### (1) Deployment of `aichallenge_submit
+The uploaded `aichallenge_submit.tar.gz` will be placed under `evaluation/`.
+
+#### (2) docker build
+The `evaluation/build.sh` will be executed to create the docker image defined in `evaluation/Dockerfile`. The procedure for creating this image is as follows
+
+1. extract the submitted `aichallenge_submit.tar.gz` to `/aichallenge/aichallenge_ws/src/aichallenge_submit
+2. run `rosdep install` and `colcon build
+
+### (3) Simulation run
+simulator will be launched in the online evaluation environment and simulation will be started.
+
+In the container, by executing `evaluation/main.bash`, the following will be performed:
+
+1. start ROS2 nodes
+2. start of scenario
+
+If executed in `evaluation/run.sh`, the results (score.json) will be saved under `evaluation/output`.
+    
+## Procedure for submitting source code to the online evaluation environment
+### (1) Compress your source code.
+Compress the source code in `aichallenge_submit`.
+
+```sh
+cd evaluation
+sh create_submit_tar.sh
+```
+
+Make sure that a compressed file is generated in `evaluation/aichallenge_submit.tar.gz`.
+
+### (2) Confirm that the file can be automatically executed in docker at `evaluation/`.
+Before uploading to the online evaluation environment, please confirm that you can build and execute in a Docker container similar to the online environment using your local environment by following the steps below.
+
+First, make sure the following files are located under `evaluation/`.
+- `aichallenge_submit.tar.gz`
+-aichallenge_submit.tar.gz`. 
+
+Next, build the docker image containing the `aichallenge_submit` you created.
+```sh
+sh build.sh
+```
+
+Once the build is complete, launch the docker container with `run.sh` and execute the scoring flow.
+```sh
+sh run.sh
+```
+
+Finally, check the scores output to `evaluation/output/score.json`.
+
+### (3) Upload the source code from the online evaluation environment web page
+
+Upload the `aichallenge_submit.tar.gz` created in (1) according to the instructions on the screen after logging in to the [web page](https://aichallenge.synesthesias.jp/).
+
+After the upload is finished, the source build and simulation will be executed in order.
+
+- If it is successfully completed, the message `Scoring complete` will be displayed, and the time for each of the distribution and evaluation scenarios will be shown. The time of the last uploaded evaluation scenario will be used as the final time in the ranking.
+- Even if the scenario execution finishes successfully, `No result` will be displayed if no score is output due to launch failure, etc., or `Checkpoint not passed` if all checkpoints have not been passed, and in any case, the time will not be used as the final time.
+- If the build fails, `Build error` is displayed. Please reconfirm that you can build the Docker image by following the steps (1) and (2).
+- If the simulator fails to run, you will see `Simulator error`. In this case, there may be an internal error on the server side, so please upload the image again. If the error message is displayed repeatedly, please contact us.
+- The grading process will be performed 5 times per submission, and the result will be determined by the average of the 5 times.
+
+Please note that you will not be able to upload new sources while the grading process is in progress. Uploading is limited to 3 times a day and will be reset at midnight Japan time.
+
 
 ## Others
 ### Notification of updates

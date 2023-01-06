@@ -12,6 +12,7 @@ find_package(std_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(autoware_auto_system_msgs REQUIRED)
 find_package(autoware_auto_vehicle_msgs REQUIRED)
+find_package(autoware_auto_perception_msgs REQUIRED)
 
 # uncomment the following section in order to fill in
 # further dependencies manually.
@@ -19,7 +20,7 @@ find_package(autoware_auto_vehicle_msgs REQUIRED)
 
 
 add_executable(sample src/sample.cpp)
-ament_target_dependencies(sample rclcpp std_msgs geometry_msgs autoware_auto_system_msgs autoware_auto_vehicle_msgs)
+ament_target_dependencies(sample rclcpp std_msgs geometry_msgs autoware_auto_system_msgs autoware_auto_vehicle_msgs autoware_auto_perception_msgs)
 
 
 install(TARGETS

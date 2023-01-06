@@ -12,6 +12,7 @@
   <build_depend>geometry_msgs</build_depend>
   <build_depend>autoware_auto_system_msgs</build_depend>
   <build_depend>autoware_auto_vehicle_msgs</build_depend>
+  <build_depend>autoware_auto_perception_msgs</build_depend>
   <exec_depend>rclcpp</exec_depend>
   <exec_depend>geometry_msgs</exec_depend>
   <exec_depend>std_msgs</exec_depend>
