@@ -9,11 +9,13 @@
 #include "std_msgs/msg/float64.hpp"
 
 #include <cstdio>
+#include <iostream>
+#include <fstream>
 
 class Score : public rclcpp::Node
 {
 public:
-  Score() : Node("score_node")
+  Score() : system_clock(RCL_ROS_TIME), Node("score_node")
   {
     // publisher
     score_publisher =
@@ -33,6 +35,9 @@ public:
     stop_point_collision_subscriber = this->create_subscription<geometry_msgs::msg::PoseStamped>(
       "/score/not_stop_collision", 1,
       std::bind(&Score::stopPointCollisionCallback, this, std::placeholders::_1));
+    timer = this->create_wall_timer(
+    std::chrono::duration<double>(1.0),
+    std::bind(&Score::timerCallback, this));
   }
 
 private:
@@ -41,6 +46,7 @@ private:
   {
     std::cout << "Start:" << msg.data << std::endl;
     start_time = msg.data;
+    has_start_time_set = true;
   }
   // Subscribe The Check Point Time
   void checkTimeCallback(const std_msgs::msg::Int64 msg)
@@ -65,6 +71,7 @@ private:
     result_msg.has_exceeded_speed_limit = false;
     result_msg.check_point_count = check_count;
     score_publisher->publish(result_msg);
+    writeResultJson(result_msg);
 
     has_published_result = true;
   }
@@ -85,6 +92,7 @@ private:
     result_msg.has_exceeded_speed_limit = true;
     result_msg.check_point_count = check_count;
     score_publisher->publish(result_msg);
+    writeResultJson(result_msg);
 
     has_published_result = true;
   }
@@ -105,6 +113,7 @@ private:
     result_msg.has_collided = true;
     result_msg.check_point_count = check_count;
     score_publisher->publish(result_msg);
+    writeResultJson(result_msg);
 
     has_published_result = true;
   }
@@ -125,8 +134,51 @@ private:
     result_msg.has_exceeded_speed_limit = false;
     result_msg.check_point_count = check_count;
     score_publisher->publish(result_msg);
+    writeResultJson(result_msg);
 
     has_published_result = true;
+  }
+
+  void timerCallback() {
+    if (!has_start_time_set)
+      return;
+
+    auto sec = system_clock.now().seconds();
+    if (!is_start_sec_initialized) {
+      start_sec = sec;
+      is_start_sec_initialized = true;
+    }
+
+    if (sec - start_sec < 10 * 60)
+      return;
+
+    if (has_published_result)
+      return;
+
+    std::cout << "Timeout" << std::endl;
+
+    result_msg.score = 0;
+    result_msg.has_finished = false;
+    result_msg.has_park_failed = false;
+    result_msg.has_collided = false;
+    result_msg.has_exceeded_speed_limit = false;
+    result_msg.check_point_count = check_count;
+    score_publisher->publish(result_msg);
+    writeResultJson(result_msg);
+
+    has_published_result = true;
+  }
+
+  void writeResultJson(const aichallenge_score_msgs::msg::Score& score_msg) {
+    std::ofstream ofs("score.json");
+    ofs << "{" << std::endl;
+    ofs << "  \"score\": " << score_msg.score << "," << std::endl;
+    ofs << "  \"hasFinished\": " << score_msg.has_finished << "," << std::endl;
+    ofs << "  \"hasCollided\": " << score_msg.has_collided << "," << std::endl;
+    ofs << "  \"hasExceededSpeedLimit\": " << score_msg.has_exceeded_speed_limit << "," << std::endl;
+    ofs << "  \"checkPointCount\": " << score_msg.check_point_count << "," << std::endl;
+    ofs << "}" << std::endl;
+    ofs.close();
   }
 
   // publisher
@@ -140,11 +192,18 @@ private:
   rclcpp::Subscription<geometry_msgs::msg::PoseStamped>::SharedPtr vehicle_collision_subscriber;
   rclcpp::Subscription<geometry_msgs::msg::PoseStamped>::SharedPtr stop_point_collision_subscriber;
 
+  rclcpp::TimerBase::SharedPtr timer;
+
+  rclcpp::Clock system_clock;
+  double start_sec = 0;
+  bool is_start_sec_initialized = false;
+
   // msg
   aichallenge_score_msgs::msg::Score result_msg = aichallenge_score_msgs::msg::Score();
 
   // other
-  int start_time = -99999999;
+  int start_time = 0;
+  bool has_start_time_set = false;
   int end_time = 0;
   int score_time = 0;
   int check_count = 0;

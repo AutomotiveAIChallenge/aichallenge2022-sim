@@ -120,26 +120,32 @@ sudo apt install libvulkan1
 - [git lfs](https://packagecloud.io/github/git-lfs/install)
 - [ROS2](https://docs.ros.org/en/galactic/index.html)（動作確認済みバージョン：Galactic）
 #### **Dockerイメージの準備・起動 〜 Autowareの準備**  
+
+##### **Dockerイメージ(v3.1)について(2023/1/6追記)**
+Dockerイメージは[autoware(fc50327ec926d5c9a04d385581f102a418af0403)](https://github.com/autowarefoundation/autoware/commit/fc50327ec926d5c9a04d385581f102a418af0403)に以下を適用しています。
+- [fix(pointcloud_preprocessor): add missed target dependency #2101](https://github.com/autowarefoundation/autoware.universe/pull/2101/files)の修正を適用して提供しています。
+- tier4_*_launchパッケージの削除
+  - aichallenge_submitに移動しています。autowareのlaunch, configファイルを変更したい場合はこちらを編集してください。
+
 1. Dockerイメージを入手
 ```
-docker pull ghcr.io/automotiveaichallenge/aichallenge2022-sim/autoware-universe-cuda:latest
+docker pull ghcr.io/automotiveaichallenge/aichallenge2022-sim/autoware-universe-cuda:3.1
 ```
 ※上記の方法では長時間かかってしまう方・タイムアウトしてしまう方↓  
-[こちら](https://drive.google.com/drive/u/2/folders/1VZAcGzcFpOBJlmmybcGau7BaHzZW5Chc)に、イメージをtarにまとめたものを置きましたので、下記コマンドよりご利用ください。
+[こちら](https://drive.google.com/file/d/145HyoeXye_bbdT6tOVVCvbSM1MTm2CKI/view?usp=share_link)に、イメージをtarにまとめたものを置きましたので、下記コマンドよりご利用ください。
 ```
-gzip -d aichallenge2022_sim_autoware_v2.0.tar.gz  
-docker load  < aichallenge2022_sim_autoware_v2.0.tar
+docker load < aichallenge2022_sim_autoware_v3.1.tar.gz
 ```
-2. 大会用データのダウンロード
+1. 大会用データのダウンロード
 ```
 sudo apt install -y git-lfs
 git lfs clone https://github.com/AutomotiveAIChallenge/aichallenge2022-sim
 ```
 
-3. rockerを起動
+1. rockerを起動
 ```
 cd ./aichallenge2022-sim
-rocker --nvidia --x11 --user --net host --privileged --volume autoware:/aichallenge -- ghcr.io/automotiveaichallenge/aichallenge2022-sim/autoware-universe-cuda:latest
+rocker --nvidia --x11 --user --net host --privileged --volume autoware:/aichallenge -- ghcr.io/automotiveaichallenge/aichallenge2022-sim/autoware-universe-cuda:3.1
 ```
 
 ### **サンプルコード(ROS2パッケージ)**
@@ -159,6 +165,11 @@ rocker --nvidia --x11 --user --net host --privileged --volume autoware:/aichalle
     - `aichallenge_submit_launch.launch.xml`が大元のlaunchファイル`aichallenge.launch.xml`から呼び出されますので、このlaunchファイルを適宜改修して皆様が実装されたROS2ノードが起動されるように設定してください。
   - sample_code_cpp
     - サンプルの自動走行実装です。
+  - obstacle_stop_planner_custom
+    - autoware.universeのobstacle_stop_plannerから障害物を誤検出する問題を解消しています。
+  - tier4_*_launch
+    - autowareのlaunchファイルをコピーして一部編集したものです。autowareのtier4_*_launchは削除しているため、こちらを必ずaichallenge_submit内に残すようにしてください。
+    - obstacle_stop_plannerの代わりにobstacle_stop_planner_customを呼び出すように変更してあります。
 
 ### **サンプルコードビルド**
 ```
@@ -218,6 +229,75 @@ ros2 launch autoware_launch e2e_simulator.launch.xml vehicle_model:=sample_vehic
 ## タイム取得
 タイム取得方法については[RULE.md](/RULE.md)を参照ください。
 
+
+## オンライン評価環境について
+### 評価時のオンライン環境での実行フローの概略
+スコアの算出にあたっては、オンライン評価環境のwebページよりパッケージ`aichallenge_submit`のみを提出していただき、自動採点を行います。
+提出後、オンライン評価環境では`evaluation/`以下のスクリプトを使って下記の手順で評価されます。
+
+#### (1) aichallenge_submitの配置
+アップロードしていただいた`aichallenge_submit.tar.gz`は`evaluation/`以下に配置されます。
+
+#### (2) docker build
+`evaluation/build.sh`が実行され、`evaluation/Dockerfile`で定義されるdockerイメージが作成されます。このイメージの作成手順は下記の通りです。
+
+1. 提出いただいた`aichallenge_submit.tar.gz`を`/aichallenge/aichallenge_ws/src/aichallenge_submit`へ展開
+2. `rosdep install`と`colcon build`の実行
+
+### (3) シミュレーション実行
+オンライン評価環境でsimulatorが立ち上がり、シミュレーションが開始されます。
+
+コンテナ内では`evaluation/main.bash`の実行によって、以下が行われます。
+
+1. ROS2ノード群の起動
+2. シナリオの開始
+
+`evaluation/run.sh`で実行した場合、`evaluation/output`以下に結果(score.json)が保存されます。
+    
+## オンライン評価環境にソースコードを提出する際の手順
+### (1) ソースコードを圧縮する
+`aichallenge_submit`内のソースコードを圧縮します。
+
+```sh
+cd evaluation
+sh create_submit_tar.sh
+```
+
+`evaluation/aichallenge_submit.tar.gz`に圧縮済みのファイルが生成されていることを確認してください。
+
+### (2) `evaluation/` でdocker内での自動実行ができることを確認する
+オンライン評価環境にアップロードする前に、ローカル環境を使いオンライン環境と同様のDockerコンテナ内でビルド・実行ができることを以下の手順で確認してください。
+
+まず、以下のファイルが`evaluation/`以下に配置されていることを確認してください。
+- `aichallenge_submit.tar.gz`
+- 
+
+次に、作成いただいた`aichallenge_submit`を含むdockerイメージをビルドしてください。
+```sh
+sh build.sh
+```
+
+ビルドが完了したら、`run.sh`によってdockerコンテナを立ち上げ採点のフローを実行してください。
+```sh
+sh run.sh
+```
+
+最後に、`evaluation/output/score.json`に出力されるスコアを確認してください。
+
+### (3) オンライン評価環境webページよりソースをアップロードする
+
+[webページ](https://aichallenge.synesthesias.jp/)にログイン後画面の指示に従って(1)で作成した`aichallenge_submit.tar.gz`をアップロードしてください。
+
+アップロードが終了すると、ソースのビルド・シミュレーションの実行が順番に行われます。
+
+- 正常に終了した場合は`Scoring complete`と表示され、配布シナリオ・評価用シナリオそれぞれのタイムが表示されます。最後にアップロードした評価シナリオのタイムが、ランキングにて最終タイムとして使われます。
+- 正常にシナリオ実行が終了しても、launchに失敗した等でスコアが出力されていない場合は`No result`、チェックポイントを全て通過していない場合は`Checkpoint not passed`と表示され、いずれの場合も最終的なタイムとしては使われません。
+- ビルドに失敗した場合は`Build error`が表示されます。(1),(2)の手順に従ってDocker imageのビルドができることを再度ご確認ください。
+- シミュレーターの実行に失敗した場合は`Simulator error`と表示されます。この場合サーバーサイドで内部エラーが生じている可能性があるため再度アップロードお願いします。繰り返し表示されてしまう場合はお問合せください。
+- 採点プロセスは一度の提出で5回行われ、結果はその平均によって決定されます。
+
+なお、採点実行中は新たなソースのアップロードはできません。またアップロードできるのは1日3回までで、日本時間0時にリセットされます。
+
 ## その他
 ### 更新等の通知に関して
 githubの更新などがある場合は、以下のURLのissueに新たにコメントします。
@@ -232,5 +312,3 @@ https://github.com/AutomotiveAIChallenge/aichallenge2022-sim/issues/1
 各issueでの質問については、基本的に2営業日以内に回答いたします。ただし、検討に時間を要する質問や質問数が多い場合等については、2営業日以上いただく可能性があることはご理解ください。   
   
 オンラインシミュレータにログインできないなど、オンラインシミュレータのアカウントに関するお問い合わせはinfo-ai@jsae.or.jp宛にお願いいたします。  
-  
-
