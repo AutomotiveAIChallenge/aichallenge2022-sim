@@ -270,7 +270,6 @@ sh create_submit_tar.sh
 
 まず、以下のファイルが`evaluation/`以下に配置されていることを確認してください。
 - `aichallenge_submit.tar.gz`
-- 
 
 次に、作成いただいた`aichallenge_submit`を含むdockerイメージをビルドしてください。
 ```sh
