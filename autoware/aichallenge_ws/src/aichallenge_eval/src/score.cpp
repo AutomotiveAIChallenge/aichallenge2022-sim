@@ -82,7 +82,7 @@ private:
       return;
 
     // 50km/h to m/s
-    if (msg.data < 50 * 1000 / 60 / 60)
+    if (msg.data < 50. * 1000 / 60 / 60)
       return;
 
     result_msg.score = 0;
